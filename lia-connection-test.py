@@ -5,7 +5,13 @@ LIA = SR830("GPIB0::8::INSTR")
 LIA.reset()
 print(LIA.id)
 print(LIA.sensitivity)
-xy = LIA.xy
-print(f"xy:{xy}")
+LIA.sensitivity = 100e-6
+# offsetをかける
+LIA.auto_offset('Y')
+LIA.reference_source = 'Internal'
+LIA.reference_source_trigger = 'SINE'
+LIA.frequency = 200
+xy = LIA.y
+print(f"xy:{abs(xy)}")
 
 # ストリーミング読み込み：宿題
